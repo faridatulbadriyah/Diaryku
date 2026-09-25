@@ -1,0 +1,112 @@
+:root {
+  --bg-primary: #FAF7F2;
+  --bg-card: #FFFFFF;
+  --accent: #8B6F47;
+  --accent-hover: #6F5638;
+  --success: #7BA05B;
+  --success-light: #E8F0DC;
+  --text-primary: #3A3A3A;
+  --text-secondary: #7A7A7A;
+  --border: #E5DDD0;
+  --shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  --shadow-hover: 0 6px 16px rgba(0, 0, 0, 0.12);
+}
+
+body.dark {
+  --bg-primary: #1A1815;
+  --bg-card: #252220;
+  --accent: #C9A87C;
+  --accent-hover: #DFC099;
+  --success: #8FBF6B;
+  --success-light: #2A3320;
+  --text-primary: #E8E2D5;
+  --text-secondary: #9A9080;
+  --border: #3A3530;
+  --shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  --shadow-hover: 0 6px 16px rgba(0, 0, 0, 0.5);
+}
+
+* { box-sizing: border-box; }
+html { min-width: 320px; }
+body { margin: 0; background: var(--bg-primary); color: var(--text-primary); font-family: system-ui, -apple-system, "Segoe UI", sans-serif; line-height: 1.6; transition: background-color 0.3s, color 0.3s; }
+button, input, textarea, select { font: inherit; }
+button, a { -webkit-tap-highlight-color: transparent; }
+button { color: inherit; }
+.container { width: min(100% - 40px, 720px); margin-inline: auto; }
+.site-header, .diary-header { display: flex; align-items: center; justify-content: space-between; gap: 20px; padding: 24px 0; }
+h1, h2 { font-family: Georgia, serif; }
+h1 { font-size: 28px; line-height: 1.2; margin: 0; }
+.subtitle { margin: 4px 0 0; color: var(--text-secondary); font-size: 14px; }
+.icon-button, .circle-button { width: 40px; height: 40px; flex: 0 0 auto; border: 1px solid var(--border); border-radius: 50%; background: var(--bg-card); cursor: pointer; transition: 0.2s ease; }
+.icon-button { font-size: 18px; }
+.icon-button:hover, .circle-button:hover { background: var(--accent); color: #fff; border-color: var(--accent); }
+.calendar-navigation { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.month-controls { display: flex; align-items: center; justify-content: center; gap: 14px; flex-wrap: wrap; }
+#monthYear { font-size: 20px; font-weight: 600; margin: 0; }
+.today-button, .back-button { padding: 8px 16px; border: 1px solid var(--accent); border-radius: 999px; background: transparent; color: var(--accent); cursor: pointer; text-decoration: none; transition: 0.2s ease; }
+.today-button:hover, .back-button:hover { background: var(--accent); color: #fff; }
+.calendar-weekdays, .calendar-grid { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 8px; }
+.calendar-weekdays { margin-top: 20px; color: var(--text-secondary); font-size: 13px; font-weight: 600; text-align: center; }
+.calendar-grid { margin-top: 8px; }
+.calendar-day { position: relative; display: flex; align-items: center; justify-content: center; aspect-ratio: 1; min-width: 0; border: 1px solid var(--border); border-radius: 12px; background: var(--bg-card); cursor: pointer; font-size: 15px; font-weight: 500; transition: 0.2s ease; }
+.calendar-day:not(.other-month):hover { transform: translateY(-2px); box-shadow: var(--shadow-hover); }
+.calendar-day.has-entry { background: var(--success-light); border-color: var(--success); }
+.calendar-day.has-entry::after { position: absolute; top: 4px; right: 4px; content: "✅"; font-size: 10px; }
+.calendar-day.today { border: 2px solid var(--accent); font-weight: 700; }
+.calendar-day.other-month { opacity: 0.3; cursor: default; pointer-events: none; }
+.stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 32px; }
+.stat-card { display: grid; gap: 2px; padding: 16px; border: 1px solid var(--border); border-radius: 12px; background: var(--bg-card); box-shadow: var(--shadow); text-align: center; }
+.stat-card strong { color: var(--accent); font: 700 28px/1.2 Georgia, serif; }
+.stat-card span { color: var(--text-secondary); font-size: 12px; letter-spacing: 0.5px; text-transform: uppercase; }
+.empty-state { padding: 40px 20px; color: var(--text-secondary); font-size: 16px; font-style: italic; text-align: center; }
+.site-footer { padding: 40px 20px 20px; color: var(--text-secondary); font-size: 13px; text-align: center; }
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
+.diary-header { display: grid; grid-template-columns: 1fr auto 1fr; }
+.diary-header .icon-button { justify-self: end; }
+.diary-header h1 { font-size: 20px; text-align: center; }
+.diary-main { padding-bottom: 110px; }
+.tabs { display: flex; overflow-x: auto; margin-bottom: 24px; border-bottom: 2px solid var(--border); scrollbar-width: none; }
+.tabs::-webkit-scrollbar { display: none; }
+.tab { position: relative; flex: 0 0 auto; padding: 12px 20px; border: 0; background: transparent; color: var(--text-secondary); cursor: pointer; font-size: 15px; font-weight: 500; transition: 0.2s ease; }
+.tab.active { color: var(--accent); font-weight: 600; }
+.tab.active::after { position: absolute; right: 0; bottom: -2px; left: 0; height: 3px; background: var(--accent); content: ""; }
+.tab-content { animation: fade-in 0.3s ease; }
+.tab-content[hidden] { display: none; }
+@keyframes fade-in { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+.field { margin-bottom: 20px; }
+.field label, .form-label { display: block; margin-bottom: 6px; font-size: 14px; font-weight: 500; }
+textarea, input:not([type="range"]), select { width: 100%; padding: 14px; border: 1px solid var(--border); border-radius: 12px; background: var(--bg-card); color: var(--text-primary); font-size: 15px; line-height: 1.6; transition: border-color 0.2s, box-shadow 0.2s; }
+textarea { min-height: 120px; resize: vertical; }
+textarea:focus, input:focus, select:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px rgba(139, 111, 71, 0.1); }
+.field-meta { display: flex; justify-content: space-between; gap: 12px; margin-top: 8px; color: var(--text-secondary); font-size: 13px; }
+.api-status { min-height: 21px; margin: 6px 0 0; color: var(--text-secondary); font-size: 13px; }
+.api-status.error { color: #B14D43; }
+.api-status.success { color: var(--success); }
+textarea[readonly] { background: color-mix(in srgb, var(--bg-card) 88%, var(--border)); cursor: default; }
+#saveStatus.saved { color: var(--success); }
+.mood-picker { display: flex; flex-wrap: wrap; gap: 8px; }
+.mood-button { width: 48px; height: 48px; border: 1px solid var(--border); border-radius: 12px; background: var(--bg-card); cursor: pointer; font-size: 24px; transition: 0.2s ease; }
+.mood-button:hover { transform: scale(1.1); }
+.mood-button.active { border: 2px solid var(--accent); background: var(--success-light); }
+input[type="range"] { width: 100%; margin: 8px 0; accent-color: var(--accent); }
+#energyValue { display: block; color: var(--accent); font-size: 16px; font-weight: 600; }
+.save-button { position: fixed; right: 30px; bottom: 30px; z-index: 5; padding: 14px 28px; border: 0; border-radius: 12px; background: var(--accent); box-shadow: 0 4px 12px rgba(139, 111, 71, 0.3); color: #fff; cursor: pointer; font-size: 16px; font-weight: 600; transition: 0.2s ease; }
+.save-button:hover { transform: translateY(-2px); box-shadow: var(--shadow-hover); }
+.toast { position: fixed; bottom: 100px; left: 50%; z-index: 10; transform: translateX(-50%) translateY(20px); padding: 12px 24px; border: 1px solid transparent; border-radius: 8px; background: #3A3A3A; color: #fff; font-size: 14px; opacity: 0; pointer-events: none; transition: 0.3s ease; }
+.toast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
+body.dark .toast { border-color: var(--border); background: var(--bg-card); color: var(--text-primary); }
+@media (max-width: 480px) {
+  .container { width: min(100% - 24px, 720px); }
+  .site-header { padding: 18px 0; }
+  h1 { font-size: 22px; }
+  .calendar-day { border-radius: 8px; font-size: 13px; }
+  .stats-grid { grid-template-columns: 1fr; }
+  .circle-button { width: 36px; height: 36px; }
+  .diary-header { grid-template-columns: 1fr auto; grid-template-areas: "back theme" "title title"; padding: 18px 0; }
+  .diary-header .back-button { grid-area: back; justify-self: start; }
+  .diary-header h1 { grid-area: title; margin-top: 10px; }
+  .diary-header .icon-button { grid-area: theme; }
+  .tab { padding: 12px 14px; }
+  .save-button { right: 0; bottom: 0; left: 0; width: 100%; border-radius: 0; }
+  .toast { bottom: 90px; }
+}
