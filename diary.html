@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Halaman diary harian Farida untuk menulis, tadabbur, dan refleksi.">
+  <title>Diary — Diary Farida</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="diary.js" defer></script>
+</head>
+<body>
+  <!-- Header halaman diary -->
+  <header class="diary-header container">
+    <a class="back-button" href="index.html" aria-label="Kembali ke kalender">← Kembali</a>
+    <h1 id="dateTitle">Diary hari ini</h1>
+    <button class="icon-button" id="themeToggle" type="button" aria-label="Toggle dark mode" title="Toggle dark mode">🌙</button>
+  </header>
+
+  <main class="container diary-main">
+    <!-- Navigasi tab konten diary -->
+    <nav class="tabs" role="tablist" aria-label="Bagian diary">
+      <button class="tab active" id="tab-button-diary" type="button" role="tab" aria-selected="true" aria-controls="tab-diary" data-tab="diary">📔 Diary</button>
+      <button class="tab" id="tab-button-tadabbur" type="button" role="tab" aria-selected="false" aria-controls="tab-tadabbur" data-tab="tadabbur">📖 Tadabbur Ayat</button>
+      <button class="tab" id="tab-button-refleksi" type="button" role="tab" aria-selected="false" aria-controls="tab-refleksi" data-tab="refleksi">💭 Daily Refleksi</button>
+    </nav>
+
+    <!-- Tab tulisan diary -->
+    <section id="tab-diary" class="tab-content active" role="tabpanel" aria-labelledby="tab-button-diary">
+      <div class="field">
+        <label for="diaryText">Tulisan Hari Ini</label>
+        <textarea id="diaryText" rows="16" placeholder="Tulis apa saja yang terjadi hari ini..."></textarea>
+        <div class="field-meta"><span id="wordCount">0 kata</span><span id="saveStatus">Belum disimpan</span></div>
+      </div>
+    </section>
+
+    <!-- Tab tadabbur ayat -->
+    <section id="tab-tadabbur" class="tab-content" role="tabpanel" aria-labelledby="tab-button-tadabbur" hidden>
+      <div class="field">
+        <label for="surahSelect">Surah</label>
+        <select id="surahSelect" aria-label="Pilih surah"></select>
+      </div>
+      <div class="field">
+        <label for="ayatNumber">Nomor ayat</label>
+        <input id="ayatNumber" type="number" min="1" placeholder="Contoh: 1">
+        <p class="api-status" id="apiStatus" role="status" aria-live="polite"></p>
+      </div>
+      <div class="field">
+        <label for="ayatArabic">Teks Arab</label>
+        <textarea id="ayatArabic" rows="5" readonly placeholder="Teks Arab akan muncul otomatis..."></textarea>
+      </div>
+      <div class="field">
+        <label for="ayatTranslation">Terjemahan Bahasa Indonesia</label>
+        <textarea id="ayatTranslation" rows="5" readonly placeholder="Terjemahan akan muncul otomatis..."></textarea>
+      </div>
+      <div class="field">
+        <label for="tadabburText">Pelajaran dari ayat ini</label>
+        <textarea id="tadabburText" rows="8" placeholder="Apa pelajaran yang aku ambil dari ayat ini?"></textarea>
+      </div>
+    </section>
+
+    <!-- Tab refleksi harian -->
+    <section id="tab-refleksi" class="tab-content" role="tabpanel" aria-labelledby="tab-button-refleksi" hidden>
+      <div class="field">
+        <span class="form-label">Bagaimana perasaanmu hari ini?</span>
+        <div class="mood-picker" id="moodPicker" role="group" aria-label="Pilih suasana hati">
+          <button type="button" class="mood-button" data-mood="😊" aria-label="Senang">😊</button>
+          <button type="button" class="mood-button" data-mood="😔" aria-label="Sedih">😔</button>
+          <button type="button" class="mood-button" data-mood="😌" aria-label="Tenang">😌</button>
+          <button type="button" class="mood-button" data-mood="😤" aria-label="Kesal">😤</button>
+          <button type="button" class="mood-button" data-mood="🤔" aria-label="Bingung">🤔</button>
+          <button type="button" class="mood-button" data-mood="😴" aria-label="Mengantuk">😴</button>
+        </div>
+      </div>
+      <div class="field">
+        <label for="energyLevel">Level energi hari ini</label>
+        <input id="energyLevel" type="range" min="1" max="10" value="5">
+        <output id="energyValue" for="energyLevel">5 / 10</output>
+      </div>
+      <div class="field"><label for="refleksiSyukur">Apa 3 hal yang aku syukuri hari ini?</label><textarea id="refleksiSyukur" rows="5"></textarea></div>
+      <div class="field"><label for="refleksiPelajaran">Pelajaran apa yang aku dapat hari ini?</label><textarea id="refleksiPelajaran" rows="5"></textarea></div>
+      <div class="field"><label for="refleksiTarget">Apa target/rencana untuk besok?</label><textarea id="refleksiTarget" rows="5"></textarea></div>
+    </section>
+  </main>
+
+  <button class="save-button" id="saveBtn" type="button">💾 Simpan</button>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+</body>
+</html>
